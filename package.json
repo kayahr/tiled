@@ -37,7 +37,7 @@
         "test:unit": "jest",
         "test:apidoc": "typedoc --emit none",
         "test": "npm run test:unit && npm run test:lint && npm run test:spell && npm run test:apidoc",
-        "site": "npm run apidoc && rimraf site && copyfiles -V -u 2 'doc/api/**/*' site && copyfiles -V -u 1 lib/tiled.schema.json site"
+        "site": "npm run apidoc && rimraf site && copyfiles -V -u 2 'doc/api/**/*' site && copyfiles -V -u 1 lib/*.schema.json site"
     },
     "files": [
         "lib/main/",
