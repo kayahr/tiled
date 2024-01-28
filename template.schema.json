@@ -1,0 +1,543 @@
+{
+  "$ref": "#/definitions/ObjectTemplate",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "AnyProperty": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/BoolProperty"
+        },
+        {
+          "$ref": "#/definitions/ClassProperty"
+        },
+        {
+          "$ref": "#/definitions/ColorProperty"
+        },
+        {
+          "$ref": "#/definitions/FileProperty"
+        },
+        {
+          "$ref": "#/definitions/FloatProperty"
+        },
+        {
+          "$ref": "#/definitions/IntProperty"
+        },
+        {
+          "$ref": "#/definitions/ObjectProperty"
+        },
+        {
+          "$ref": "#/definitions/StringProperty"
+        }
+      ],
+      "description": "Union of all property types."
+    },
+    "BaseMapObject": {
+      "additionalProperties": false,
+      "description": "Base data for map objects.",
+      "properties": {
+        "ellipse": {
+          "description": "True if object is an ellipse. False or undefined if not.",
+          "type": "boolean"
+        },
+        "gid": {
+          "description": "Global tile ID, only if object represents a tile.",
+          "type": "number"
+        },
+        "height": {
+          "description": "Height in pixels. Always 0 for points. Default is 0.",
+          "type": "number"
+        },
+        "id": {
+          "description": "Incremental ID, unique across all objects.",
+          "type": "number"
+        },
+        "name": {
+          "description": "The name assigned to this object. Default is empty.",
+          "type": "string"
+        },
+        "point": {
+          "description": "True if object is a point. False or undefined if not.",
+          "type": "boolean"
+        },
+        "polygon": {
+          "description": "Array of points if object is a polygon.",
+          "items": {
+            "$ref": "#/definitions/Point"
+          },
+          "type": "array"
+        },
+        "polyline": {
+          "description": "Array of points if object is a polyline.",
+          "items": {
+            "$ref": "#/definitions/Point"
+          },
+          "type": "array"
+        },
+        "properties": {
+          "description": "Array of object properties.",
+          "items": {
+            "$ref": "#/definitions/AnyProperty"
+          },
+          "type": "array"
+        },
+        "rotation": {
+          "description": "Rotation angle in degrees clockwise. Default is 0.",
+          "type": "number"
+        },
+        "template": {
+          "description": "Reference to a template file, in case object is a template instance.",
+          "type": "string"
+        },
+        "text": {
+          "$ref": "#/definitions/Text",
+          "description": "Text data if object is a text."
+        },
+        "type": {
+          "description": "The class of the object. Was saved as `class` in older Tiled v1.9. Default is empty.",
+          "type": "string"
+        },
+        "visible": {
+          "description": "Whether object is shown in editor. Default is true.",
+          "type": "boolean"
+        },
+        "width": {
+          "description": "Width in pixels. Always 0 for points. Default is 0.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "BoolProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.BOOL%3E",
+      "description": "A custom boolean property."
+    },
+    "ClassProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.CLASS%3E",
+      "description": "A custom class property."
+    },
+    "Color": {
+      "description": "A color in 32 Bit RGB or ARGB hex format (Examples: `#ff0000` for red, `#40e0d0ff` for fully opaque turquoise). Can also be an empty string for no color.",
+      "pattern": "^(#[0-9a-f]{6,8})?$",
+      "type": "string"
+    },
+    "ColorProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.COLOR%3E",
+      "description": "A custom color property."
+    },
+    "FileProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.FILE%3E",
+      "description": "A custom file reference property."
+    },
+    "FloatProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.FLOAT%3E",
+      "description": "A custom floating point number property."
+    },
+    "HorizontalAlign": {
+      "description": "Horizontal alignment.",
+      "enum": [
+        "center",
+        "right",
+        "justify",
+        "left"
+      ],
+      "type": "string"
+    },
+    "IntProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.INT%3E",
+      "description": "A custom integer property."
+    },
+    "ObjectProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.OBJECT%3E",
+      "description": "A custom object reference property."
+    },
+    "ObjectTemplate": {
+      "additionalProperties": false,
+      "description": "External map object template.",
+      "properties": {
+        "object": {
+          "$ref": "#/definitions/BaseMapObject",
+          "description": "The object instantiated by this template."
+        },
+        "tileset": {
+          "$ref": "#/definitions/TilesetRef",
+          "description": "Optional external tileset used byt the template."
+        },
+        "type": {
+          "const": "template",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "object"
+      ],
+      "type": "object"
+    },
+    "Point": {
+      "additionalProperties": false,
+      "description": "A point.",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.BOOL>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.BOOL",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.BOOL%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.CLASS>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.CLASS",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.CLASS%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.COLOR>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.COLOR",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.COLOR%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.FILE>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.FILE",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.FILE%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.FLOAT>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.FLOAT",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.FLOAT%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.INT>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.INT",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.INT%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.OBJECT>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.OBJECT",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.OBJECT%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.STRING>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.STRING",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.STRING%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "PropertyType.BOOL": {
+      "const": "bool",
+      "type": "string"
+    },
+    "PropertyType.CLASS": {
+      "const": "class",
+      "type": "string"
+    },
+    "PropertyType.COLOR": {
+      "const": "color",
+      "type": "string"
+    },
+    "PropertyType.FILE": {
+      "const": "file",
+      "type": "string"
+    },
+    "PropertyType.FLOAT": {
+      "const": "float",
+      "type": "string"
+    },
+    "PropertyType.INT": {
+      "const": "int",
+      "type": "string"
+    },
+    "PropertyType.OBJECT": {
+      "const": "object",
+      "type": "string"
+    },
+    "PropertyType.STRING": {
+      "const": "string",
+      "type": "string"
+    },
+    "PropertyValueType<PropertyType.BOOL>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "boolean"
+    },
+    "PropertyValueType<PropertyType.CLASS>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "string"
+    },
+    "PropertyValueType<PropertyType.COLOR>": {
+      "$ref": "#/definitions/Color",
+      "description": "Type which maps a property type to a property value type."
+    },
+    "PropertyValueType<PropertyType.FILE>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "string"
+    },
+    "PropertyValueType<PropertyType.FLOAT>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "number"
+    },
+    "PropertyValueType<PropertyType.INT>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "number"
+    },
+    "PropertyValueType<PropertyType.OBJECT>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "number"
+    },
+    "PropertyValueType<PropertyType.STRING>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "string"
+    },
+    "StringProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.STRING%3E",
+      "description": "A custom string property."
+    },
+    "Text": {
+      "additionalProperties": false,
+      "description": "Text in a Text object",
+      "properties": {
+        "bold": {
+          "description": "Whether to use a bold font. Default is false.",
+          "type": "boolean"
+        },
+        "color": {
+          "description": "The text color. Default is black.",
+          "type": "string"
+        },
+        "fontfamily": {
+          "description": "The font family. Default is `sand-serif`",
+          "type": "string"
+        },
+        "halign": {
+          "$ref": "#/definitions/HorizontalAlign",
+          "description": "The horizontal alignment. Default is LEFT."
+        },
+        "italic": {
+          "description": "Whether to use an italic font. Default is false.",
+          "type": "boolean"
+        },
+        "kerning": {
+          "description": "Whether to use kerning when placing characters. Default is true.",
+          "type": "boolean"
+        },
+        "pixelsize": {
+          "description": "Pixel size of the font. Default is 16.",
+          "type": "number"
+        },
+        "strikeout": {
+          "description": "Whether to strike out the text. Default is false.",
+          "type": "boolean"
+        },
+        "text": {
+          "description": "The text.",
+          "type": "string"
+        },
+        "underline": {
+          "description": "Whether to underline the text. Default is false.",
+          "type": "boolean"
+        },
+        "valign": {
+          "$ref": "#/definitions/VerticalAlign",
+          "description": "Vertical alignment. Default is TOP."
+        },
+        "wrap": {
+          "description": "Whether the text is wrapped within the object bounds. Default is false.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "type": "object"
+    },
+    "TilesetRef": {
+      "additionalProperties": false,
+      "description": "External tileset reference.",
+      "properties": {
+        "firstgid": {
+          "description": "GID corresponding to the first tile in the set.",
+          "type": "number"
+        },
+        "source": {
+          "description": "The external file that contains this tilesets data.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "firstgid",
+        "source"
+      ],
+      "type": "object"
+    },
+    "VerticalAlign": {
+      "description": "Vertical alignment.",
+      "enum": [
+        "center",
+        "bottom",
+        "top"
+      ],
+      "type": "string"
+    }
+  }
+}

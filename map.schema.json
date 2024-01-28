@@ -1,0 +1,1767 @@
+{
+  "$ref": "#/definitions/Map",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "AnyLayer": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/AnyTileLayer"
+        },
+        {
+          "$ref": "#/definitions/ObjectGroup"
+        },
+        {
+          "$ref": "#/definitions/ImageLayer"
+        },
+        {
+          "$ref": "#/definitions/Group"
+        }
+      ],
+      "description": "Union of all layer types."
+    },
+    "AnyProperty": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/BoolProperty"
+        },
+        {
+          "$ref": "#/definitions/ClassProperty"
+        },
+        {
+          "$ref": "#/definitions/ColorProperty"
+        },
+        {
+          "$ref": "#/definitions/FileProperty"
+        },
+        {
+          "$ref": "#/definitions/FloatProperty"
+        },
+        {
+          "$ref": "#/definitions/IntProperty"
+        },
+        {
+          "$ref": "#/definitions/ObjectProperty"
+        },
+        {
+          "$ref": "#/definitions/StringProperty"
+        }
+      ],
+      "description": "Union of all property types."
+    },
+    "AnyTileLayer": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/EncodedTileLayer"
+        },
+        {
+          "$ref": "#/definitions/UnencodedTileLayer"
+        }
+      ],
+      "description": "Union of all tile layer types."
+    },
+    "AnyTileset": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/EmbeddedTileset"
+        },
+        {
+          "$ref": "#/definitions/TilesetRef"
+        }
+      ],
+      "description": "Union of all tileset types."
+    },
+    "BoolProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.BOOL%3E",
+      "description": "A custom boolean property."
+    },
+    "Chunk<EncodingDataType<Encoding.CSV>>": {
+      "additionalProperties": false,
+      "description": "Used to store the tile layer data for infinite maps.",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/EncodingDataType%3CEncoding.CSV%3E",
+          "description": "Array of unsigned integers (GIDs) or base64-encoded data."
+        },
+        "height": {
+          "description": "Height in tiles.",
+          "type": "number"
+        },
+        "width": {
+          "description": "Width in tiles.",
+          "type": "number"
+        },
+        "x": {
+          "description": "X coordinate in tiles.",
+          "type": "number"
+        },
+        "y": {
+          "description": "Y coordinate in tiles.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "data",
+        "height",
+        "width",
+        "x",
+        "y"
+      ],
+      "type": "object"
+    },
+    "Chunk<EncodingDataType<Exclude<Encoding,Encoding.CSV>>>": {
+      "additionalProperties": false,
+      "description": "Used to store the tile layer data for infinite maps.",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/EncodingDataType%3CExclude%3CEncoding%2CEncoding.CSV%3E%3E",
+          "description": "Array of unsigned integers (GIDs) or base64-encoded data."
+        },
+        "height": {
+          "description": "Height in tiles.",
+          "type": "number"
+        },
+        "width": {
+          "description": "Width in tiles.",
+          "type": "number"
+        },
+        "x": {
+          "description": "X coordinate in tiles.",
+          "type": "number"
+        },
+        "y": {
+          "description": "Y coordinate in tiles.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "data",
+        "height",
+        "width",
+        "x",
+        "y"
+      ],
+      "type": "object"
+    },
+    "ClassProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.CLASS%3E",
+      "description": "A custom class property."
+    },
+    "Color": {
+      "description": "A color in 32 Bit RGB or ARGB hex format (Examples: `#ff0000` for red, `#40e0d0ff` for fully opaque turquoise). Can also be an empty string for no color.",
+      "pattern": "^(#[0-9a-f]{6,8})?$",
+      "type": "string"
+    },
+    "ColorProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.COLOR%3E",
+      "description": "A custom color property."
+    },
+    "Compression": {
+      "description": "Data compression.",
+      "enum": [
+        "",
+        "gzip",
+        "zlib",
+        "zstd"
+      ],
+      "type": "string"
+    },
+    "DrawOrder": {
+      "description": "Object group draw order.",
+      "enum": [
+        "topdown",
+        "index"
+      ],
+      "type": "string"
+    },
+    "EmbeddedTileset": {
+      "additionalProperties": false,
+      "description": "Embedded tileset.",
+      "properties": {
+        "backgroundcolor": {
+          "$ref": "#/definitions/Color",
+          "description": "Optional background color."
+        },
+        "class": {
+          "description": "Optional class of the tileset.",
+          "type": "string"
+        },
+        "columns": {
+          "description": "The number of tile columns.",
+          "type": "number"
+        },
+        "fillmode": {
+          "$ref": "#/definitions/FillMode",
+          "description": "The fill mode to use when rendering tiles from this tileset. Default is STRETCH."
+        },
+        "firstgid": {
+          "description": "GID corresponding to the first tile in the set.",
+          "type": "number"
+        },
+        "grid": {
+          "$ref": "#/definitions/Grid",
+          "description": "Optional common grid settings for tiles in this tileset. Default is 32x32 Orthogonal."
+        },
+        "image": {
+          "description": "The image used for tiles in this set.",
+          "type": "string"
+        },
+        "imageheight": {
+          "description": "Height of the source image in pixels.",
+          "type": "number"
+        },
+        "imagewidth": {
+          "description": "Width of the source image in pixels.",
+          "type": "number"
+        },
+        "margin": {
+          "description": "Buffer between image edge and first tile in pixels.",
+          "type": "number"
+        },
+        "name": {
+          "description": "Name given to this tileset.",
+          "type": "string"
+        },
+        "objectalignment": {
+          "$ref": "#/definitions/ObjectAlignment",
+          "description": "Alignment to use for tile objects. Default is UNSPECIFIED."
+        },
+        "properties": {
+          "description": "Array of custom properties.",
+          "items": {
+            "$ref": "#/definitions/AnyProperty"
+          },
+          "type": "array"
+        },
+        "spacing": {
+          "description": "Spacing between adjacent tiles in image (pixels).",
+          "type": "number"
+        },
+        "tilecount": {
+          "description": "The number of tiles in this tileset.",
+          "type": "number"
+        },
+        "tileheight": {
+          "description": "Maximum height of tiles in this set.",
+          "type": "number"
+        },
+        "tileoffset": {
+          "$ref": "#/definitions/Point",
+          "description": "Optional tile drawing offset in pixels. Positive is right and down."
+        },
+        "tilerendersize": {
+          "$ref": "#/definitions/TileRenderSize",
+          "description": "Optional size to use when rendering tiles from this tileset on a tile layer. Default is TILE."
+        },
+        "tiles": {
+          "description": "The tiles.",
+          "items": {
+            "$ref": "#/definitions/Tile"
+          },
+          "type": "array"
+        },
+        "tilewidth": {
+          "description": "Maximum width of tiles in this set.",
+          "type": "number"
+        },
+        "transformations": {
+          "$ref": "#/definitions/Transformation",
+          "description": "Optional allowed transformations."
+        },
+        "transparentcolor": {
+          "$ref": "#/definitions/Color",
+          "description": "Optional transparent color."
+        },
+        "wangsets": {
+          "description": "Optional list of Wang sets.",
+          "items": {
+            "$ref": "#/definitions/WangSet"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "columns",
+        "firstgid",
+        "image",
+        "imageheight",
+        "imagewidth",
+        "margin",
+        "name",
+        "spacing",
+        "tilecount",
+        "tileheight",
+        "tilewidth"
+      ],
+      "type": "object"
+    },
+    "EncodedTileLayer": {
+      "additionalProperties": false,
+      "description": "Tile layer.",
+      "properties": {
+        "chunks": {
+          "description": "Array of chunks. Only set for tile layers in infinite maps.",
+          "items": {
+            "$ref": "#/definitions/Chunk%3CEncodingDataType%3CExclude%3CEncoding%2CEncoding.CSV%3E%3E%3E"
+          },
+          "type": "array"
+        },
+        "class": {
+          "description": "The class of the layer.",
+          "type": "string"
+        },
+        "compression": {
+          "$ref": "#/definitions/Compression",
+          "description": "Compression method for base64 encoded data and chunks. Only set when base64 encoding is set."
+        },
+        "data": {
+          "$ref": "#/definitions/EncodingDataType%3CExclude%3CEncoding%2CEncoding.CSV%3E%3E",
+          "description": "Array of unsigned integers (GIDs) or base64-encoded data."
+        },
+        "encoding": {
+          "$ref": "#/definitions/Exclude%3CEncoding%2CEncoding.CSV%3E",
+          "description": "The data encoding. When set to CSV or undefined then  {@link  data }  and data in  {@link  chunks }  are unsigned integers. When set to BASE64 then data is base64 encoded and optionally compressed by the compression method defined in  {@link  compression } ."
+        },
+        "height": {
+          "description": "Row count. Same as map height for fixed-size maps.",
+          "type": "number"
+        },
+        "id": {
+          "description": "Incremental ID. Unique across all layers.",
+          "type": "number"
+        },
+        "locked": {
+          "description": "Whether layer is locked in the editor. Default is false.",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "The layer's name.",
+          "type": "string"
+        },
+        "offsetx": {
+          "description": "Optional horizontal layer offset in pixels. Default is 0.",
+          "type": "number"
+        },
+        "offsety": {
+          "description": "Optional vertical layer offset in pixels. Default is 0.",
+          "type": "number"
+        },
+        "opacity": {
+          "description": "Layer opacity between 0 and 1.",
+          "type": "number"
+        },
+        "parallaxx": {
+          "description": "Horizontal parallax factor. Default is 1.",
+          "type": "number"
+        },
+        "parallaxy": {
+          "description": "Vertical parallax factor. Default is 1.",
+          "type": "number"
+        },
+        "properties": {
+          "description": "Array of properties. Empty if not set.",
+          "items": {
+            "$ref": "#/definitions/AnyProperty"
+          },
+          "type": "array"
+        },
+        "startx": {
+          "description": "X coordinate where layer content stats. Only set to infinite maps.",
+          "type": "number"
+        },
+        "starty": {
+          "description": "Y coordinate where layer content stats. Only set to infinite maps.",
+          "type": "number"
+        },
+        "tintcolor": {
+          "$ref": "#/definitions/Color",
+          "description": "Optional tint color that is multiplied with any graphics drawn by this layer or any child layer."
+        },
+        "type": {
+          "const": "tilelayer",
+          "description": "The layer type.",
+          "type": "string"
+        },
+        "visible": {
+          "description": "Whether layer is shown or hidden in editor.",
+          "type": "boolean"
+        },
+        "width": {
+          "description": "Column count. Same as map width for fixed-size maps.",
+          "type": "number"
+        },
+        "x": {
+          "description": "Horizontal layer offset in tiles. Always 0.",
+          "type": "number"
+        },
+        "y": {
+          "description": "Vertical layer offset in tiles. Always 0.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "encoding",
+        "height",
+        "id",
+        "name",
+        "opacity",
+        "type",
+        "visible",
+        "width",
+        "x",
+        "y"
+      ],
+      "type": "object"
+    },
+    "Encoding.CSV": {
+      "const": "csv",
+      "type": "string"
+    },
+    "EncodingDataType<Encoding.CSV>": {
+      "items": {
+        "type": "number"
+      },
+      "type": "array"
+    },
+    "EncodingDataType<Exclude<Encoding,Encoding.CSV>>": {
+      "type": "string"
+    },
+    "Exclude<Encoding,Encoding.CSV>": {
+      "const": "base64",
+      "description": "Tile layer encoding.",
+      "type": "string"
+    },
+    "FileProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.FILE%3E",
+      "description": "A custom file reference property."
+    },
+    "FillMode": {
+      "description": "Tile fill mode.",
+      "enum": [
+        "stretch",
+        "preserve-aspect-fit"
+      ],
+      "type": "string"
+    },
+    "FloatProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.FLOAT%3E",
+      "description": "A custom floating point number property."
+    },
+    "Frame": {
+      "additionalProperties": false,
+      "description": "Tile animation frame.",
+      "properties": {
+        "duration": {
+          "description": "Frame duration in milliseconds.",
+          "type": "number"
+        },
+        "tileid": {
+          "description": "Local tile ID representing this frame.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "duration",
+        "tileid"
+      ],
+      "type": "object"
+    },
+    "Grid": {
+      "additionalProperties": false,
+      "description": "Common grid properties for tiles in a tileset.",
+      "properties": {
+        "height": {
+          "description": "The cell height of the tile grid.",
+          "type": "number"
+        },
+        "orientation": {
+          "$ref": "#/definitions/GridOrientation",
+          "description": "The grid orientation."
+        },
+        "width": {
+          "description": "The cell width of the tile grid.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "height",
+        "orientation",
+        "width"
+      ],
+      "type": "object"
+    },
+    "GridOrientation": {
+      "description": "Grid orientations.",
+      "enum": [
+        "orthogonal",
+        "isometric"
+      ],
+      "type": "string"
+    },
+    "Group": {
+      "additionalProperties": false,
+      "description": "Group layer.",
+      "properties": {
+        "class": {
+          "description": "The class of the layer.",
+          "type": "string"
+        },
+        "id": {
+          "description": "Incremental ID. Unique across all layers.",
+          "type": "number"
+        },
+        "layers": {
+          "description": "Array of layers.",
+          "items": {
+            "$ref": "#/definitions/AnyLayer"
+          },
+          "type": "array"
+        },
+        "locked": {
+          "description": "Whether layer is locked in the editor. Default is false.",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "The layer's name.",
+          "type": "string"
+        },
+        "offsetx": {
+          "description": "Optional horizontal layer offset in pixels. Default is 0.",
+          "type": "number"
+        },
+        "offsety": {
+          "description": "Optional vertical layer offset in pixels. Default is 0.",
+          "type": "number"
+        },
+        "opacity": {
+          "description": "Layer opacity between 0 and 1.",
+          "type": "number"
+        },
+        "parallaxx": {
+          "description": "Horizontal parallax factor. Default is 1.",
+          "type": "number"
+        },
+        "parallaxy": {
+          "description": "Vertical parallax factor. Default is 1.",
+          "type": "number"
+        },
+        "properties": {
+          "description": "Array of properties. Empty if not set.",
+          "items": {
+            "$ref": "#/definitions/AnyProperty"
+          },
+          "type": "array"
+        },
+        "tintcolor": {
+          "$ref": "#/definitions/Color",
+          "description": "Optional tint color that is multiplied with any graphics drawn by this layer or any child layer."
+        },
+        "type": {
+          "const": "group",
+          "description": "The layer type.",
+          "type": "string"
+        },
+        "visible": {
+          "description": "Whether layer is shown or hidden in editor.",
+          "type": "boolean"
+        },
+        "x": {
+          "description": "Horizontal layer offset in tiles. Always 0.",
+          "type": "number"
+        },
+        "y": {
+          "description": "Vertical layer offset in tiles. Always 0.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "layers",
+        "name",
+        "opacity",
+        "type",
+        "visible",
+        "x",
+        "y"
+      ],
+      "type": "object"
+    },
+    "HorizontalAlign": {
+      "description": "Horizontal alignment.",
+      "enum": [
+        "center",
+        "right",
+        "justify",
+        "left"
+      ],
+      "type": "string"
+    },
+    "ImageLayer": {
+      "additionalProperties": false,
+      "description": "Image layer.",
+      "properties": {
+        "class": {
+          "description": "The class of the layer.",
+          "type": "string"
+        },
+        "id": {
+          "description": "Incremental ID. Unique across all layers.",
+          "type": "number"
+        },
+        "image": {
+          "description": "Image used by this layer.",
+          "type": "string"
+        },
+        "locked": {
+          "description": "Whether layer is locked in the editor. Default is false.",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "The layer's name.",
+          "type": "string"
+        },
+        "offsetx": {
+          "description": "Optional horizontal layer offset in pixels. Default is 0.",
+          "type": "number"
+        },
+        "offsety": {
+          "description": "Optional vertical layer offset in pixels. Default is 0.",
+          "type": "number"
+        },
+        "opacity": {
+          "description": "Layer opacity between 0 and 1.",
+          "type": "number"
+        },
+        "parallaxx": {
+          "description": "Horizontal parallax factor. Default is 1.",
+          "type": "number"
+        },
+        "parallaxy": {
+          "description": "Vertical parallax factor. Default is 1.",
+          "type": "number"
+        },
+        "properties": {
+          "description": "Array of properties. Empty if not set.",
+          "items": {
+            "$ref": "#/definitions/AnyProperty"
+          },
+          "type": "array"
+        },
+        "repeatx": {
+          "description": "Whether the image drawn by this layer is repeated along the X axis. Default is false.",
+          "type": "boolean"
+        },
+        "repeaty": {
+          "description": "Whether the image drawn by this layer is repeated along the Y axis. Default is false.",
+          "type": "boolean"
+        },
+        "tintcolor": {
+          "$ref": "#/definitions/Color",
+          "description": "Optional tint color that is multiplied with any graphics drawn by this layer or any child layer."
+        },
+        "transparentcolor": {
+          "$ref": "#/definitions/Color",
+          "description": "Optional transparent color."
+        },
+        "type": {
+          "const": "imagelayer",
+          "description": "The layer type.",
+          "type": "string"
+        },
+        "visible": {
+          "description": "Whether layer is shown or hidden in editor.",
+          "type": "boolean"
+        },
+        "x": {
+          "description": "Horizontal layer offset in tiles. Always 0.",
+          "type": "number"
+        },
+        "y": {
+          "description": "Vertical layer offset in tiles. Always 0.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "image",
+        "name",
+        "opacity",
+        "type",
+        "visible",
+        "x",
+        "y"
+      ],
+      "type": "object"
+    },
+    "IntProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.INT%3E",
+      "description": "A custom integer property."
+    },
+    "Map": {
+      "additionalProperties": false,
+      "description": "Tiled map. This is the root type in a Tiled JSON file.",
+      "properties": {
+        "backgroundcolor": {
+          "$ref": "#/definitions/Color",
+          "description": "Optional background color."
+        },
+        "class": {
+          "description": "Optional class of the map.",
+          "type": "string"
+        },
+        "compressionlevel": {
+          "description": "The compression level to use for tile layer data. Defaults to -1, which means to use the algorithm default.",
+          "type": "number"
+        },
+        "editorsettings": {
+          "description": "Irrelevant editor-specific settings."
+        },
+        "height": {
+          "description": "Number of tile rows.",
+          "type": "number"
+        },
+        "hexsidelength": {
+          "description": "Length of the side of a hex tile in pixels. Only set for hexagonal maps.",
+          "type": "number"
+        },
+        "infinite": {
+          "description": "Whether the map has infinite dimensions.",
+          "type": "boolean"
+        },
+        "layers": {
+          "description": "Array of layers.",
+          "items": {
+            "$ref": "#/definitions/AnyLayer"
+          },
+          "type": "array"
+        },
+        "nextlayerid": {
+          "description": "Auto-increments for each layer.",
+          "type": "number"
+        },
+        "nextobjectid": {
+          "description": "Auto-increments for each placed object.",
+          "type": "number"
+        },
+        "orientation": {
+          "$ref": "#/definitions/MapOrientation",
+          "description": "The map orientation."
+        },
+        "parallaxoriginx": {
+          "description": "X coordinate of the parallax origin in pixels. 0 if not set.",
+          "type": "number"
+        },
+        "parallaxoriginy": {
+          "description": "Y coordinate of the parallax origin in pixels. 0 if not set.",
+          "type": "number"
+        },
+        "properties": {
+          "description": "Array of properties. Empty if not set.",
+          "items": {
+            "$ref": "#/definitions/AnyProperty"
+          },
+          "type": "array"
+        },
+        "renderorder": {
+          "$ref": "#/definitions/MapRenderOrder",
+          "description": "The map render order."
+        },
+        "staggeraxis": {
+          "$ref": "#/definitions/StaggerAxis",
+          "description": "The stagger axis. Only set for staggered / hexagonal maps."
+        },
+        "staggerindex": {
+          "$ref": "#/definitions/StaggerIndex",
+          "description": "The stagger index. Only set for staggered / hexagonal maps."
+        },
+        "tiledversion": {
+          "description": "The Tiled version used to save the file.",
+          "type": "string"
+        },
+        "tileheight": {
+          "description": "Map grid height.",
+          "type": "number"
+        },
+        "tilesets": {
+          "description": "Array of tilesets. Empty if not set.",
+          "items": {
+            "$ref": "#/definitions/AnyTileset"
+          },
+          "type": "array"
+        },
+        "tilewidth": {
+          "description": "Map grid width.",
+          "type": "number"
+        },
+        "type": {
+          "const": "map",
+          "description": "Always \"map\".",
+          "type": "string"
+        },
+        "version": {
+          "description": "The JSON format version.",
+          "type": "string"
+        },
+        "width": {
+          "description": "Number of tile columns.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "compressionlevel",
+        "height",
+        "infinite",
+        "layers",
+        "nextlayerid",
+        "nextobjectid",
+        "orientation",
+        "renderorder",
+        "tiledversion",
+        "tileheight",
+        "tilewidth",
+        "type",
+        "version",
+        "width"
+      ],
+      "type": "object"
+    },
+    "MapObject": {
+      "additionalProperties": false,
+      "description": "A map object.",
+      "properties": {
+        "ellipse": {
+          "description": "True if object is an ellipse. False or undefined if not.",
+          "type": "boolean"
+        },
+        "gid": {
+          "description": "Global tile ID, only if object represents a tile.",
+          "type": "number"
+        },
+        "height": {
+          "description": "Height in pixels. Always 0 for points. Default is 0.",
+          "type": "number"
+        },
+        "id": {
+          "description": "Incremental ID, unique across all objects.",
+          "type": "number"
+        },
+        "name": {
+          "description": "The name assigned to this object. Default is empty.",
+          "type": "string"
+        },
+        "point": {
+          "description": "True if object is a point. False or undefined if not.",
+          "type": "boolean"
+        },
+        "polygon": {
+          "description": "Array of points if object is a polygon.",
+          "items": {
+            "$ref": "#/definitions/Point"
+          },
+          "type": "array"
+        },
+        "polyline": {
+          "description": "Array of points if object is a polyline.",
+          "items": {
+            "$ref": "#/definitions/Point"
+          },
+          "type": "array"
+        },
+        "properties": {
+          "description": "Array of object properties.",
+          "items": {
+            "$ref": "#/definitions/AnyProperty"
+          },
+          "type": "array"
+        },
+        "rotation": {
+          "description": "Rotation angle in degrees clockwise. Default is 0.",
+          "type": "number"
+        },
+        "template": {
+          "description": "Reference to a template file, in case object is a template instance.",
+          "type": "string"
+        },
+        "text": {
+          "$ref": "#/definitions/Text",
+          "description": "Text data if object is a text."
+        },
+        "type": {
+          "description": "The class of the object. Was saved as `class` in older Tiled v1.9. Default is empty.",
+          "type": "string"
+        },
+        "visible": {
+          "description": "Whether object is shown in editor. Default is true.",
+          "type": "boolean"
+        },
+        "width": {
+          "description": "Width in pixels. Always 0 for points. Default is 0.",
+          "type": "number"
+        },
+        "x": {
+          "description": "X coordinate in pixels.",
+          "type": "number"
+        },
+        "y": {
+          "description": "Y coordinate in pixels.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "x",
+        "y"
+      ],
+      "type": "object"
+    },
+    "MapOrientation": {
+      "description": "Map orientations.",
+      "enum": [
+        "orthogonal",
+        "isometric",
+        "staggered",
+        "hexagonal"
+      ],
+      "type": "string"
+    },
+    "MapRenderOrder": {
+      "description": "Map render order.",
+      "enum": [
+        "right-down",
+        "right-up",
+        "left-down",
+        "left-up"
+      ],
+      "type": "string"
+    },
+    "ObjectAlignment": {
+      "description": "Alignment to use for tile objects.",
+      "enum": [
+        "unspecified",
+        "topleft",
+        "top",
+        "topright",
+        "left",
+        "center",
+        "right",
+        "bottomleft",
+        "bottom",
+        "bottomright"
+      ],
+      "type": "string"
+    },
+    "ObjectGroup": {
+      "additionalProperties": false,
+      "description": "Object group.",
+      "properties": {
+        "class": {
+          "description": "The class of the layer.",
+          "type": "string"
+        },
+        "draworder": {
+          "$ref": "#/definitions/DrawOrder",
+          "description": "The object group draw order"
+        },
+        "id": {
+          "description": "Incremental ID. Unique across all layers.",
+          "type": "number"
+        },
+        "locked": {
+          "description": "Whether layer is locked in the editor. Default is false.",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "The layer's name.",
+          "type": "string"
+        },
+        "objects": {
+          "description": "Array of map objects.",
+          "items": {
+            "$ref": "#/definitions/MapObject"
+          },
+          "type": "array"
+        },
+        "offsetx": {
+          "description": "Optional horizontal layer offset in pixels. Default is 0.",
+          "type": "number"
+        },
+        "offsety": {
+          "description": "Optional vertical layer offset in pixels. Default is 0.",
+          "type": "number"
+        },
+        "opacity": {
+          "description": "Layer opacity between 0 and 1.",
+          "type": "number"
+        },
+        "parallaxx": {
+          "description": "Horizontal parallax factor. Default is 1.",
+          "type": "number"
+        },
+        "parallaxy": {
+          "description": "Vertical parallax factor. Default is 1.",
+          "type": "number"
+        },
+        "properties": {
+          "description": "Array of properties. Empty if not set.",
+          "items": {
+            "$ref": "#/definitions/AnyProperty"
+          },
+          "type": "array"
+        },
+        "tintcolor": {
+          "$ref": "#/definitions/Color",
+          "description": "Optional tint color that is multiplied with any graphics drawn by this layer or any child layer."
+        },
+        "type": {
+          "const": "objectgroup",
+          "description": "The layer type.",
+          "type": "string"
+        },
+        "visible": {
+          "description": "Whether layer is shown or hidden in editor.",
+          "type": "boolean"
+        },
+        "x": {
+          "description": "Horizontal layer offset in tiles. Always 0.",
+          "type": "number"
+        },
+        "y": {
+          "description": "Vertical layer offset in tiles. Always 0.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "draworder",
+        "id",
+        "name",
+        "objects",
+        "opacity",
+        "type",
+        "visible",
+        "x",
+        "y"
+      ],
+      "type": "object"
+    },
+    "ObjectProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.OBJECT%3E",
+      "description": "A custom object reference property."
+    },
+    "Point": {
+      "additionalProperties": false,
+      "description": "A point.",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.BOOL>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.BOOL",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.BOOL%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.CLASS>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.CLASS",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.CLASS%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.COLOR>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.COLOR",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.COLOR%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.FILE>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.FILE",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.FILE%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.FLOAT>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.FLOAT",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.FLOAT%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.INT>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.INT",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.INT%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.OBJECT>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.OBJECT",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.OBJECT%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Property<PropertyType.STRING>": {
+      "additionalProperties": false,
+      "description": "Base data of a custom property.",
+      "properties": {
+        "name": {
+          "description": "The name of the property.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/PropertyType.STRING",
+          "description": "The type of the property."
+        },
+        "value": {
+          "$ref": "#/definitions/PropertyValueType%3CPropertyType.STRING%3E",
+          "description": "The value of the property."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "PropertyType.BOOL": {
+      "const": "bool",
+      "type": "string"
+    },
+    "PropertyType.CLASS": {
+      "const": "class",
+      "type": "string"
+    },
+    "PropertyType.COLOR": {
+      "const": "color",
+      "type": "string"
+    },
+    "PropertyType.FILE": {
+      "const": "file",
+      "type": "string"
+    },
+    "PropertyType.FLOAT": {
+      "const": "float",
+      "type": "string"
+    },
+    "PropertyType.INT": {
+      "const": "int",
+      "type": "string"
+    },
+    "PropertyType.OBJECT": {
+      "const": "object",
+      "type": "string"
+    },
+    "PropertyType.STRING": {
+      "const": "string",
+      "type": "string"
+    },
+    "PropertyValueType<PropertyType.BOOL>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "boolean"
+    },
+    "PropertyValueType<PropertyType.CLASS>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "string"
+    },
+    "PropertyValueType<PropertyType.COLOR>": {
+      "$ref": "#/definitions/Color",
+      "description": "Type which maps a property type to a property value type."
+    },
+    "PropertyValueType<PropertyType.FILE>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "string"
+    },
+    "PropertyValueType<PropertyType.FLOAT>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "number"
+    },
+    "PropertyValueType<PropertyType.INT>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "number"
+    },
+    "PropertyValueType<PropertyType.OBJECT>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "number"
+    },
+    "PropertyValueType<PropertyType.STRING>": {
+      "description": "Type which maps a property type to a property value type.",
+      "type": "string"
+    },
+    "StaggerAxis": {
+      "description": "Stagger axis.",
+      "enum": [
+        "x",
+        "y"
+      ],
+      "type": "string"
+    },
+    "StaggerIndex": {
+      "description": "Stagger axis.",
+      "enum": [
+        "odd",
+        "even"
+      ],
+      "type": "string"
+    },
+    "StringProperty": {
+      "$ref": "#/definitions/Property%3CPropertyType.STRING%3E",
+      "description": "A custom string property."
+    },
+    "Text": {
+      "additionalProperties": false,
+      "description": "Text in a Text object",
+      "properties": {
+        "bold": {
+          "description": "Whether to use a bold font. Default is false.",
+          "type": "boolean"
+        },
+        "color": {
+          "description": "The text color. Default is black.",
+          "type": "string"
+        },
+        "fontfamily": {
+          "description": "The font family. Default is `sand-serif`",
+          "type": "string"
+        },
+        "halign": {
+          "$ref": "#/definitions/HorizontalAlign",
+          "description": "The horizontal alignment. Default is LEFT."
+        },
+        "italic": {
+          "description": "Whether to use an italic font. Default is false.",
+          "type": "boolean"
+        },
+        "kerning": {
+          "description": "Whether to use kerning when placing characters. Default is true.",
+          "type": "boolean"
+        },
+        "pixelsize": {
+          "description": "Pixel size of the font. Default is 16.",
+          "type": "number"
+        },
+        "strikeout": {
+          "description": "Whether to strike out the text. Default is false.",
+          "type": "boolean"
+        },
+        "text": {
+          "description": "The text.",
+          "type": "string"
+        },
+        "underline": {
+          "description": "Whether to underline the text. Default is false.",
+          "type": "boolean"
+        },
+        "valign": {
+          "$ref": "#/definitions/VerticalAlign",
+          "description": "Vertical alignment. Default is TOP."
+        },
+        "wrap": {
+          "description": "Whether the text is wrapped within the object bounds. Default is false.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "type": "object"
+    },
+    "Tile": {
+      "additionalProperties": false,
+      "description": "Tile definition.",
+      "properties": {
+        "animation": {
+          "description": "Array of frames if tile is animated.",
+          "items": {
+            "$ref": "#/definitions/Frame"
+          },
+          "type": "array"
+        },
+        "height": {
+          "description": "The height of the sub-rectangle representing this tile. Default is the image height.",
+          "type": "number"
+        },
+        "id": {
+          "description": "Local ID of the tile.",
+          "type": "number"
+        },
+        "image": {
+          "description": "Image representing this tile. Optional, used for image collection tilesets.",
+          "type": "string"
+        },
+        "imageheight": {
+          "description": "Height of the tile image in pixels. Only set when  {@link  image }  is set.",
+          "type": "number"
+        },
+        "imagewidth": {
+          "description": "Width of the tile image in pixels. Only set when  {@link  image }  is set.",
+          "type": "number"
+        },
+        "objectgroup": {
+          "$ref": "#/definitions/ObjectGroup",
+          "description": "Optional object group layer when collision shapes are specified."
+        },
+        "probability": {
+          "description": "Percentage chance this tile is chosen when competing with others in the editor. Default is 1.",
+          "type": "number"
+        },
+        "properties": {
+          "description": "Optional list of custom tile properties.",
+          "items": {
+            "$ref": "#/definitions/AnyProperty"
+          },
+          "type": "array"
+        },
+        "type": {
+          "description": "Optional class of the tile (was saved as `class` in Tiled v1.9).",
+          "type": "string"
+        },
+        "width": {
+          "description": "The width of the sub-rectangle representing this tile. Default is the image width.",
+          "type": "number"
+        },
+        "x": {
+          "description": "The X position of the sub-rectangle representing this tile. Default is 0.",
+          "type": "number"
+        },
+        "y": {
+          "description": "The Y position of the sub-rectangle representing this tile. Default is 0.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "TileRenderSize": {
+      "description": "Tile render size.",
+      "enum": [
+        "tile",
+        "grid"
+      ],
+      "type": "string"
+    },
+    "TilesetRef": {
+      "additionalProperties": false,
+      "description": "External tileset reference.",
+      "properties": {
+        "firstgid": {
+          "description": "GID corresponding to the first tile in the set.",
+          "type": "number"
+        },
+        "source": {
+          "description": "The external file that contains this tilesets data.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "firstgid",
+        "source"
+      ],
+      "type": "object"
+    },
+    "Transformation": {
+      "additionalProperties": false,
+      "properties": {
+        "hflip": {
+          "description": "Tiles can be flipped horizontally.",
+          "type": "boolean"
+        },
+        "preferuntransformed": {
+          "description": "Whether untransformed tiles remain preferred, otherwise transformed tiles are used to produce more variations.",
+          "type": "boolean"
+        },
+        "rotate": {
+          "description": "Tiles can be rotated in 90-degree increments.",
+          "type": "boolean"
+        },
+        "vflip": {
+          "description": "Tiles can be flipped vertically",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "hflip",
+        "vflip",
+        "rotate",
+        "preferuntransformed"
+      ],
+      "type": "object"
+    },
+    "UnencodedTileLayer": {
+      "additionalProperties": false,
+      "description": "Tile layer.",
+      "properties": {
+        "chunks": {
+          "description": "Array of chunks. Only set for tile layers in infinite maps.",
+          "items": {
+            "$ref": "#/definitions/Chunk%3CEncodingDataType%3CEncoding.CSV%3E%3E"
+          },
+          "type": "array"
+        },
+        "class": {
+          "description": "The class of the layer.",
+          "type": "string"
+        },
+        "compression": {
+          "$ref": "#/definitions/Compression",
+          "description": "Compression method for base64 encoded data and chunks. Only set when base64 encoding is set."
+        },
+        "data": {
+          "$ref": "#/definitions/EncodingDataType%3CEncoding.CSV%3E",
+          "description": "Array of unsigned integers (GIDs) or base64-encoded data."
+        },
+        "encoding": {
+          "$ref": "#/definitions/Encoding.CSV",
+          "description": "The data encoding. When set to CSV or undefined then  {@link  data }  and data in  {@link  chunks }  are unsigned integers. When set to BASE64 then data is base64 encoded and optionally compressed by the compression method defined in  {@link  compression } ."
+        },
+        "height": {
+          "description": "Row count. Same as map height for fixed-size maps.",
+          "type": "number"
+        },
+        "id": {
+          "description": "Incremental ID. Unique across all layers.",
+          "type": "number"
+        },
+        "locked": {
+          "description": "Whether layer is locked in the editor. Default is false.",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "The layer's name.",
+          "type": "string"
+        },
+        "offsetx": {
+          "description": "Optional horizontal layer offset in pixels. Default is 0.",
+          "type": "number"
+        },
+        "offsety": {
+          "description": "Optional vertical layer offset in pixels. Default is 0.",
+          "type": "number"
+        },
+        "opacity": {
+          "description": "Layer opacity between 0 and 1.",
+          "type": "number"
+        },
+        "parallaxx": {
+          "description": "Horizontal parallax factor. Default is 1.",
+          "type": "number"
+        },
+        "parallaxy": {
+          "description": "Vertical parallax factor. Default is 1.",
+          "type": "number"
+        },
+        "properties": {
+          "description": "Array of properties. Empty if not set.",
+          "items": {
+            "$ref": "#/definitions/AnyProperty"
+          },
+          "type": "array"
+        },
+        "startx": {
+          "description": "X coordinate where layer content stats. Only set to infinite maps.",
+          "type": "number"
+        },
+        "starty": {
+          "description": "Y coordinate where layer content stats. Only set to infinite maps.",
+          "type": "number"
+        },
+        "tintcolor": {
+          "$ref": "#/definitions/Color",
+          "description": "Optional tint color that is multiplied with any graphics drawn by this layer or any child layer."
+        },
+        "type": {
+          "const": "tilelayer",
+          "description": "The layer type.",
+          "type": "string"
+        },
+        "visible": {
+          "description": "Whether layer is shown or hidden in editor.",
+          "type": "boolean"
+        },
+        "width": {
+          "description": "Column count. Same as map width for fixed-size maps.",
+          "type": "number"
+        },
+        "x": {
+          "description": "Horizontal layer offset in tiles. Always 0.",
+          "type": "number"
+        },
+        "y": {
+          "description": "Vertical layer offset in tiles. Always 0.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "height",
+        "id",
+        "name",
+        "opacity",
+        "type",
+        "visible",
+        "width",
+        "x",
+        "y"
+      ],
+      "type": "object"
+    },
+    "VerticalAlign": {
+      "description": "Vertical alignment.",
+      "enum": [
+        "center",
+        "bottom",
+        "top"
+      ],
+      "type": "string"
+    },
+    "WangColor": {
+      "additionalProperties": false,
+      "description": "Wang color.",
+      "properties": {
+        "class": {
+          "description": "Optional class of the Wang color.",
+          "type": "string"
+        },
+        "color": {
+          "$ref": "#/definitions/Color",
+          "description": "The color."
+        },
+        "name": {
+          "description": "The name.",
+          "type": "string"
+        },
+        "probability": {
+          "description": "Probability used when randomizing.",
+          "type": "number"
+        },
+        "properties": {
+          "description": "Optional custom properties.",
+          "items": {
+            "$ref": "#/definitions/AnyProperty"
+          },
+          "type": "array"
+        },
+        "tile": {
+          "description": "Local ID of tile representing the Wang color.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "color",
+        "name",
+        "probability",
+        "tile"
+      ],
+      "type": "object"
+    },
+    "WangSet": {
+      "additionalProperties": false,
+      "description": "Wang set.",
+      "properties": {
+        "class": {
+          "description": "Optional class of the Wang set.",
+          "type": "string"
+        },
+        "colors": {
+          "description": "Array of Wang colors.",
+          "items": {
+            "$ref": "#/definitions/WangColor"
+          },
+          "type": "array"
+        },
+        "name": {
+          "description": "Name of the Wang set.",
+          "type": "string"
+        },
+        "tile": {
+          "description": "Local ID of tile representing the Wang set.",
+          "type": "number"
+        },
+        "type": {
+          "$ref": "#/definitions/WangSetType",
+          "description": "The type of Wang set."
+        },
+        "wangtiles": {
+          "description": "Array of Wang tiles.",
+          "items": {
+            "$ref": "#/definitions/WangTile"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "colors",
+        "name",
+        "tile",
+        "type",
+        "wangtiles"
+      ],
+      "type": "object"
+    },
+    "WangSetType": {
+      "description": "Wang set type.",
+      "enum": [
+        "corner",
+        "edge",
+        "mixed"
+      ],
+      "type": "string"
+    },
+    "WangTile": {
+      "additionalProperties": false,
+      "description": "Wang tile.",
+      "properties": {
+        "tileid": {
+          "description": "Local ID of the tile.",
+          "type": "number"
+        },
+        "wangid": {
+          "description": "Array of Wang color indices.",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 8,
+          "minItems": 8,
+          "type": "array"
+        }
+      },
+      "required": [
+        "tileid",
+        "wangid"
+      ],
+      "type": "object"
+    }
+  }
+}
