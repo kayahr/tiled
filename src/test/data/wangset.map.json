@@ -1,0 +1,228 @@
+{ "compressionlevel":-1,
+ "height":20,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":20,
+         "id":1,
+         "name":"Tile Layer 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":30,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":2,
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tiledversion":"1.10.2",
+ "tileheight":32,
+ "tilesets":[
+        {
+         "columns":2,
+         "firstgid":1,
+         "image":"tiles.png",
+         "imageheight":64,
+         "imagewidth":64,
+         "margin":0,
+         "name":"Wang Set Tileset",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":32,
+         "tilewidth":32,
+         "wangsets":[
+                {
+                 "colors":[
+                        {
+                         "color":"#ff0000",
+                         "name":"",
+                         "probability":2,
+                         "tile":-1
+                        }, 
+                        {
+                         "color":"#00ff00",
+                         "name":"With Name",
+                         "probability":1,
+                         "tile":-1
+                        }, 
+                        {
+                         "class":"With Class",
+                         "color":"#0000ff",
+                         "name":"",
+                         "probability":1,
+                         "tile":-1
+                        }, 
+                        {
+                         "color":"#ff7700",
+                         "name":"",
+                         "probability":1,
+                         "tile":-1
+                        }],
+                 "name":"Corner Set",
+                 "tile":-1,
+                 "type":"corner",
+                 "wangtiles":[
+                        {
+                         "tileid":0,
+                         "wangid":[0, 2, 0, 3, 0, 4, 0, 1]
+                        }, 
+                        {
+                         "tileid":1,
+                         "wangid":[0, 0, 0, 0, 0, 1, 0, 0]
+                        }, 
+                        {
+                         "tileid":2,
+                         "wangid":[0, 1, 0, 0, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":3,
+                         "wangid":[0, 0, 0, 0, 0, 0, 0, 1]
+                        }]
+                }, 
+                {
+                 "class":"Class Name",
+                 "colors":[
+                        {
+                         "color":"#ff0000",
+                         "name":"",
+                         "probability":1,
+                         "tile":-1
+                        }, 
+                        {
+                         "color":"#00ff00",
+                         "name":"",
+                         "probability":1,
+                         "properties":[
+                                {
+                                 "name":"colorProperty",
+                                 "type":"color",
+                                 "value":"#ffff00ff"
+                                }, 
+                                {
+                                 "name":"falseProperty",
+                                 "type":"bool",
+                                 "value":false
+                                }, 
+                                {
+                                 "name":"fileProperty",
+                                 "type":"file",
+                                 "value":"wangset.map.json"
+                                }, 
+                                {
+                                 "name":"floatProperty",
+                                 "type":"float",
+                                 "value":34.123
+                                }, 
+                                {
+                                 "name":"intProperty",
+                                 "type":"int",
+                                 "value":3
+                                }, 
+                                {
+                                 "name":"objectProperty",
+                                 "type":"object",
+                                 "value":54
+                                }, 
+                                {
+                                 "name":"stringProperty",
+                                 "type":"string",
+                                 "value":"test"
+                                }, 
+                                {
+                                 "name":"trueProperty",
+                                 "type":"bool",
+                                 "value":true
+                                }, 
+                                {
+                                 "name":"unsetColorProperty",
+                                 "type":"color",
+                                 "value":""
+                                }],
+                         "tile":-1
+                        }],
+                 "name":"Edge Set",
+                 "tile":-1,
+                 "type":"edge",
+                 "wangtiles":[
+                        {
+                         "tileid":0,
+                         "wangid":[1, 0, 2, 0, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":1,
+                         "wangid":[0, 0, 2, 0, 1, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":2,
+                         "wangid":[1, 0, 2, 0, 0, 0, 0, 0]
+                        }]
+                }, 
+                {
+                 "colors":[
+                        {
+                         "color":"#ff0000",
+                         "name":"",
+                         "probability":1,
+                         "tile":-1
+                        }, 
+                        {
+                         "color":"#00ff00",
+                         "name":"",
+                         "probability":1,
+                         "tile":-1
+                        }, 
+                        {
+                         "color":"#0000ff",
+                         "name":"",
+                         "probability":1,
+                         "tile":-1
+                        }],
+                 "name":"Mixed Set",
+                 "tile":-1,
+                 "type":"mixed",
+                 "wangtiles":[
+                        {
+                         "tileid":0,
+                         "wangid":[1, 1, 0, 0, 3, 0, 0, 1]
+                        }, 
+                        {
+                         "tileid":1,
+                         "wangid":[0, 0, 0, 0, 3, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":2,
+                         "wangid":[1, 0, 0, 0, 0, 0, 0, 0]
+                        }, 
+                        {
+                         "tileid":3,
+                         "wangid":[1, 2, 0, 3, 3, 3, 0, 0]
+                        }]
+                }]
+        }],
+ "tilewidth":32,
+ "type":"map",
+ "version":"1.10",
+ "width":30
+}

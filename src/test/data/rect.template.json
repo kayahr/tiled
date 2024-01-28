@@ -1,0 +1,18 @@
+{ "object":
+    {
+     "height":113.260332038149,
+     "id":22,
+     "name":"",
+     "properties":[
+            {
+             "name":"stringProperty",
+             "type":"string",
+             "value":"test"
+            }],
+     "rotation":0,
+     "type":"",
+     "visible":true,
+     "width":165.48216178029
+    },
+ "type":"template"
+}

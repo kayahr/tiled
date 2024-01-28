@@ -1,0 +1,10 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": [
+        "src/main"
+    ],
+    "basePath": "src/main",
+    "out": "doc/api",
+    "excludePrivate": true,
+    "gitRevision": "main"
+}

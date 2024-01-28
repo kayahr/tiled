@@ -1,0 +1,9 @@
+{
+    "testMatch": [
+        "<rootDir>/lib/test/**/*.test.js"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+        "<rootDir>/lib/main/**/*.js"
+    ]
+}
